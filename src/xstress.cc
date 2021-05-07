@@ -73,6 +73,10 @@ int main(int argc, const char *argv[])
     unsigned int ii;
     int rv;
 
+    /*  Initialise the RNG just once. This way the rand()
+        function might generate fairly random numbers */
+    srand(time(0));
+
     pidList = NULL;
     pidCount = 0;
 

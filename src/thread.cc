@@ -8,6 +8,7 @@
  * Please visit the following webpage for more details
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+#include <stdio.h>
 #include "common.h"
 #include "thread.h"
 #include "logger.h"
@@ -28,7 +29,6 @@ Thread::Thread(void)
     iSockFd = -1;
     uiEventToPoll = POLLOUT;
     logger.setThreadId(id);
-
 }
 
 Thread::Thread(int _id, int _mailsToSend, Config *_configObj)
@@ -60,7 +60,6 @@ void Thread::initThread(int _id, int _mailsToSend, Config *_configObj)
     configObj = _configObj;
     iSockFd = -1;
 
-
     createSocket();
     //initMailObj();
     //mailObj.iSock = iSockFd;
@@ -77,7 +76,7 @@ void Thread::createSocket()
     fcntl(iSockFd, F_SETFL, O_NONBLOCK);
 
     mailObj.resetAuth();
-    initMailObj();
+    initMailObj(int(uiMailsSend));
 }
 
 void Thread::closeSocket()
@@ -91,7 +90,7 @@ void Thread::closeSocket()
 
 }
 
-void Thread::initMailObj()
+void Thread::initMailObj(int iCounter)
 {
     iOkay = true;
     mailObj.iSock = iSockFd;
@@ -100,10 +99,10 @@ void Thread::initMailObj()
     mailObj.setHelo(configObj->sFQDNHelo);
     mailObj.setAuthInfo(configObj->sUsername, configObj->sPassword, configObj->sAuthType);
     mailObj.setMailInfo(configObj->getTo(),
-            configObj->getFrom(),
-            configObj->getSubject(),
-            configObj->getBody(),
-            configObj->getAttachment());
+                        configObj->getFrom(),
+                        configObj->getSubject(),
+                        configObj->getBody(iCounter),
+                        configObj->getAttachment(iCounter));
 }
 
 int Thread::okay()
@@ -117,7 +116,6 @@ void Thread::process()
     pollfd fds[1];
     fds[0].fd = iSockFd;
     fds[0].events = uiEventToPoll;
-
 
     //cout << "events = " << uiEventToPoll << " POLLIN,POLLOUT,POLLERR,POLLHUP " << POLLIN <<"," << POLLOUT << "," << POLLERR << "," << POLLHUP << " CurrState=" << mailObj.state() <<endl;
 
@@ -153,12 +151,12 @@ void Thread::process()
             if(uiMailsSend>=0xFFFFFFFF)
             {
                 char cBuf[200];
-                sprintf(cBuf,"Sent %ld mails, reseting counter to Zero.",0xFFFFFFFF);
+                sprintf(cBuf,"Sent %ld mails, resetting counter to Zero.",0xFFFFFFFF);
                 logger.log(cBuf);
                 uiMailsSend=0;
             }
             // Get another TO/FROM/BODY/ATTACH
-            initMailObj();
+            initMailObj(int(uiMailsSend));
             uiEventToPoll = POLLOUT;
             return;
         }
@@ -232,7 +230,7 @@ void Thread::process()
             if(uiMailsSend >= 0xFFFFFFFF)
             {
                 char cBuf[200];
-                sprintf(cBuf,"Sent %ld mails, reseting counter to Zero.",0xFFFFFFFF);
+                sprintf(cBuf,"Sent %ld mails, resetting counter to Zero.",0xFFFFFFFF);
                 logger.log(cBuf);
                 uiMailsSend = 0;
             }
@@ -240,7 +238,7 @@ void Thread::process()
             if(uiMailsSend >= 0xFFFFFFFF)
             {
                 char cBuf[200];
-                sprintf(cBuf,"Failed sending %ld mails, reseting counter to Zero.",0xFFFFFFFF);
+                sprintf(cBuf,"Failed sending %ld mails, resetting counter to Zero.",0xFFFFFFFF);
                 logger.log(cBuf);
                 uiNotSent=0;
             }

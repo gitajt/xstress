@@ -52,8 +52,8 @@ class Config
   string getTo();
   string getFrom();
   string getSubject();
-  string getBody();
-  string getAttachment();
+  string getBody(int iCounter);
+  string getAttachment(int iCounter);
 };
 
 #endif

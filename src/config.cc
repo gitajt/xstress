@@ -65,45 +65,40 @@ int Config::okay()
 string Config::getTo()
 {
   unsigned int size = toList.size(), ii;
-  srand(time(0));
-  ii = (rand()%size);
   if(size==0) return string("");
+  ii = (rand()%size);
   return toList[ii]; 
 }
 
 string Config::getFrom()
 {
   unsigned int size = fromList.size(), ii;
-  srand(time(0));
-  ii = (rand()%size);
   if(size==0) return string("");
+  ii = (rand()%size);
   return fromList[ii]; 
 }
 
 string Config::getSubject()
 {
   unsigned int size = subjectList.size(), ii;
-  srand(time(0));
-  ii = (rand()%size);
   if(size==0) return string("");
+  ii = (rand()%size);
   return subjectList[ii]; 
 }
 
-string Config::getBody()
+string Config::getBody(int iCounter)
 {
   unsigned int size = bodyList.size(), ii;
-  srand(time(0));
-  ii = (rand()%size);
   if(size==0) return string("");
+  ii = (iCounter % size);
   return bodyList[ii]; 
 }
 
-string Config::getAttachment()
+string Config::getAttachment(int iCounter)
 {
   unsigned int size = attachList.size(), ii;
-  srand(time(0));
   if(size==0) return string("");
-  ii = (rand()%size);
+  ii = (iCounter % size);
   return attachList[ii]; 
 }
 

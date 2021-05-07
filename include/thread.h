@@ -42,7 +42,7 @@ class Thread
   void process();
   int okay();
   void initThread(int _id, int _mailsToSend, Config *_configObj);
-  void initMailObj();
+  void initMailObj(int iCounter);
   int finished();
   int getid();
   void writeStatus();
