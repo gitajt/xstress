@@ -54,8 +54,8 @@ SendMail::SendMail()
     bAuthenticated = false;
 }
 
-    SendMail::SendMail
-(string _sTo, string _sFrom, string _sSubject, string _sBody, string _sAttachment)
+SendMail::SendMail
+      (string _sTo, string _sFrom, string _sSubject, string _sBody, string _sAttachment)
 {
     uiLastState = IDLE;
     uiStateCounter = 0;
@@ -93,8 +93,8 @@ void SendMail::disconnect()
     iConnected = false;
 }
 
-    void SendMail::setMailInfo
-(string _sTo, string _sFrom, string _sSubject, string _sBody, string _sAttachment)
+void SendMail::setMailInfo
+      (string _sTo, string _sFrom, string _sSubject, string _sBody, string _sAttachment)
 {
     setTo(_sTo);
     setFrom(_sFrom);

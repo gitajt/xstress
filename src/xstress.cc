@@ -150,10 +150,10 @@ int main(int argc, const char *argv[])
                      *  establish connection to the server for whatever reasons.
                      *
                      *   XXX TODO Probably we can add something here, so that 
-                     *   after certain number of retires xstress stoppes
+                     *   after a certain number of retries xstress stops
                      *   trying to reconnect.
                      *
-                     *   And obvisouly, the number of retires got to be configurable.
+                     *   And obviously, the number of retries got to be configurable.
                      *
                     if(!threadObj.okay())
                     {

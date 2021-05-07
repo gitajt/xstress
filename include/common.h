@@ -89,10 +89,10 @@ const string HELP_MSG =
 "                               log file.\n"
 "-d, --debug                    If this switch is provided, verbose debug messages\n"
 "                               With complete traffic will be printed on screen.\n"
-"                               Usefull for checking if things are working as expected.\n"
-"-l <FQDN>, --helo <FQDN>       Which Full Quallified Domain Name should be used as the\n"
+"                               Useful for checking if things are working as expected.\n"
+"-l <FQDN>, --helo <FQDN>       Which Fully Qualified Domain Name should be used as the\n"
 "                               HELO/EHLO Hostname. If not specified, localhost is used\n"
-"                               (which is not a FQDN but at least a valid entry.)\n"
+"                               (which is not a FQDN but is at least a valid entry.)\n"
 "--license                      View disclaimer and short license notice.\n"
 "\n"
 "**Note: command line options always override configuration file settings\n";
