@@ -1,0 +1,5 @@
+xstress TODO:
+
+1) Add a configuration item to specify either random or sequential selection of mail items (default to random for backward compatibility).
+
+2) (Thinking aloud now) add a counter or random value to each mail, possibly appended to the Subject or a recipient address
